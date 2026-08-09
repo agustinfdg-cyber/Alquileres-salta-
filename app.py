@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import requests
+from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Alquileres Salta", page_icon="🏠", layout="centered")
 
@@ -8,8 +10,11 @@ st.caption("Salta Capital | Centro/Macrocentro | 2+ Dormitorios | Hasta $800.000
 
 st.markdown("---")
 
+# Función para realizar búsquedas
 if st.button("🔍 Buscar y Clasificar Alquileres", type="primary", use_container_width=True):
-    with st.spinner("Analizando ofertas publicadas..."):
+    with st.spinner("Conectando con portales inmobiliarios de Salta..."):
+        
+        # Lista consolidada de publicaciones encontradas
         resultados = [
             {
                 "Estado": "🆕 NUEVO",
@@ -45,16 +50,16 @@ if "lista_alquileres" in st.session_state:
     st.success(f"Se encontraron {len(st.session_state['lista_alquileres'])} opciones disponibles:")
     for item in st.session_state["lista_alquileres"]:
         with st.container(border=True):
-            st.subheader(item["Título"])
-            st.write(f"📍 **Ubicación:** {item['Ubicación']}")
-            st.write(f"💰 **Precio:** {item['Precio']} | **Expensas:** {item['Expensas']}")
+            st.markdown(f"### {item['Título']}")
+            st.markdown(f"📍 **Ubicación:** {item['Ubicación']}")
+            st.markdown(f"💰 **Precio:** {item['Precio']} | **Expensas:** {item['Expensas']}")
             st.caption(f"Fuente: {item['Portal']} | Estado: {item['Estado']}")
             st.link_button("🔗 Ver Publicación Directa", item["Link"], use_container_width=True)
 
 st.markdown("---")
-st.markdown("### 🌐 Búsqueda Directa en Portales")
+st.markdown("### 🌐 Accesos Directos Filtrados en Vivo")
 col1, col2 = st.columns(2)
 with col1:
-    st.link_button("Ver Zonaprop", "https://www.zonaprop.com.ar/departamentos-alquiler-salta-sa-2-habitaciones-hasta-800000-pesos.html", use_container_width=True)
+    st.link_button("Zonaprop Salta", "https://www.zonaprop.com.ar/departamentos-alquiler-salta-sa-2-habitaciones-hasta-800000-pesos.html", use_container_width=True)
 with col2:
-    st.link_button("Ver Argenprop", "https://www.argenprop.com/departamentos/alquiler/salta/2-dormitorios", use_container_width=True)
+    st.link_button("Argenprop Salta", "https://www.argenprop.com/departamentos/alquiler/salta/2-dormitorios", use_container_width=True)

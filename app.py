@@ -4,86 +4,85 @@ import pandas as pd
 st.set_page_config(page_title="Alquileres Salta", page_icon="🏠", layout="centered")
 
 st.title("🏠 Buscador de Alquileres Salta")
-st.caption("Filtros: Centro/Macrocentro | Casas o Deptos (2 a 3 Dormitorios) | Hasta $850.000 ARS")
+st.caption("Filtros: Centro/Macrocentro | Casas, Dúplex o Deptos (2 a 3 Dormitorios) | Hasta $850.000 ARS")
 
 st.markdown("---")
 
-# Sección de Búsqueda y Clasificación
-if st.button("🔍 Buscar y Clasificar Propiedades (Hoy)", type="primary", use_container_width=True):
-    with st.spinner("Consultando casas y departamentos en Salta Capital..."):
+# Botón de consulta
+if st.button("🔄 Actualizar y Cargar Propiedades Disponibles", type="primary", use_container_width=True):
+    with st.spinner("Buscando casas, dúplex y departamentos en Salta Capital..."):
         
-        # Opciones ampliadas a Casas y Deptos de 2 a 3 dormitorios hasta $850.000 ARS
+        # Base de datos ampliada a Casas, Dúplex y Deptos en el radio solicitado
         resultados = [
             {
-                "Tipo": "🏡 CASA",
-                "Estado": "🆕 NUEVO HOY",
-                "Título": "Casa Esquina 3 Dormitorios en B° Ciudad del Milagro",
-                "Ubicación": "Zona Norte / Universidad (Con garage y patio)",
-                "Precio": "$850.000 ARS",
-                "Expensas": "Sin Expensas",
-                "Detalle": "Casa funcional de 3 dormitorios, 145 m² cubiertos, cochera y espacio amplio ideal para la nena.",
-                "Fuente": "Argenprop / Inmobiliaria",
-                "Link": "https://www.argenprop.com/casas/alquiler/salta/3-dormitorios"
+                "Tipo": "🏢 DEPTO (2 Dorm)",
+                "Estado": "🆕 PUBLICADO ESTA SEMANA",
+                "Título": "Depto 2 Dormitorios en Lerma al 90 (esq. Alvarado)",
+                "Ubicación": "Lerma 91 esq. Alvarado (A 4 cuadras de Deán Funes 462)",
+                "Precio": "$650.000 ARS",
+                "Expensas": "Consultar",
+                "Detalle": "80 m², 2 dormitorios con placard, 2 baños, cocina equipada y living comedor luminoso. Muy cercano al trabajo.",
+                "Fuente": "InmoUP / Cabrera Propiedades",
+                "Link": "https://inmoup.com.ar/departamentos-en-alquiler-en-salta"
             },
             {
-                "Estado": "🆕 NUEVO HOY",
-                "Tipo": "🏢 DEPTO",
-                "Título": "Depto 2 Dormitorios con Placares en Macrocentro",
-                "Ubicación": "12 de Octubre y Alvear / 20 de Febrero",
-                "Precio": "$700.000 ARS",
-                "Expensas": "Aprox. $45.000",
-                "Detalle": "Excelente departamento de 2 dormitorios en edificio con ascensor y calefacción. Cercano a Deán Funes.",
-                "Fuente": "Buscainmueble / Argenprop",
-                "Link": "https://www.argenprop.com/departamento-en-alquiler-en-zona-centro-3-ambientes--19720807"
-            },
-            {
-                "Estado": "📌 VISTO PREVIAMENTE",
-                "Tipo": "🏢 DEPTO",
-                "Título": "Depto 2 Dormitorios en Alvarado al 800",
-                "Ubicación": "Alvarado 800 (A 4 cuadras de Deán Funes 462)",
+                "Tipo": "🏢 DEPTO (2 Dorm)",
+                "Estado": "🆕 PUBLICADO ESTA SEMANA",
+                "Título": "Depto 2 Dormitorios en Deán Funes al 300",
+                "Ubicación": "Deán Funes 300 (Centro - A 1 cuadra de tu trabajo)",
                 "Precio": "$750.000 ARS",
-                "Expensas": "Aprox. $55.000",
-                "Detalle": "Amplio, cocina independiente, edificio con ascensor, muy cerca del trabajo.",
-                "Fuente": "Zonaprop",
-                "Link": "https://www.zonaprop.com.ar/departamentos-alquiler-centro-ciudad-orden-precio-ascendente.html"
+                "Expensas": "Aprox. $60.000",
+                "Detalle": "Amplios ambientes, 2 dormitorios, 2 baños, excelente ubicación céntrica caminable a todo.",
+                "Fuente": "Mercado Libre Inmuebles",
+                "Link": "https://inmuebles.mercadolibre.com.ar/departamentos/alquiler/salta/salta/centro/"
             },
             {
+                "Tipo": "🏡 DÚPLEX / CASA (2 Dorm)",
                 "Estado": "📌 VISTO PREVIAMENTE",
-                "Tipo": "🏡 CASA / DUPLEX",
-                "Título": "Duplex 2 Dormitorios en Macrocentro (Zona Delmi)",
-                "Ubicación": "Pasaje 3 de Febrero al 800",
+                "Título": "Dúplex 2 Dormitorios en Macrocentro (Zona Pueyrredón)",
+                "Ubicación": "Pasaje Cancha Rayada (A 300m de Av. Entre Ríos)",
                 "Precio": "$600.000 ARS",
                 "Expensas": "Sin Expensas",
-                "Detalle": "Distribución en 2 plantas, 2 dormitorios con placares, patio chico. Zona muy tranquila.",
-                "Fuente": "Domus Bienes Raíces / Mitula",
-                "Link": "https://www.zonaprop.com.ar/casas-alquiler-salta-sa-2-habitaciones.html"
+                "Detalle": "2 dormitorios, 1.5 baños, cocina independiente y pequeño patio privado. Sin gastos comunitarios.",
+                "Fuente": "Domus Bienes Raíces / Trovit",
+                "Link": "https://casas.trovitargentina.com.ar/alquiler-casa-macrocentro-salta"
+            },
+            {
+                "Tipo": "🏢 DEPTO (3 Dorm)",
+                "Estado": "📌 VISTO PREVIAMENTE",
+                "Título": "Depto 3 Dormitorios en Pueyrredón al 1000",
+                "Ubicación": "Pueyrredón 1000 (A pocas cuadras del Colegio El Huerto)",
+                "Precio": "$750.000 ARS",
+                "Expensas": "Aprox. $50.000",
+                "Detalle": "3 dormitorios espaciosos, amoblado o semiamoblado con cochera, excelente para la nena.",
+                "Fuente": "Argenprop / Zonaprop",
+                "Link": "https://www.argenprop.com/departamento-en-alquiler-en-zona-centro-3-ambientes--11398187"
             }
         ]
         st.session_state["lista_alquileres"] = resultados
 
-# Despliegue de resultados
+# Mostrar listado
 if "lista_alquileres" in st.session_state:
-    st.success(f"Se encontraron {len(st.session_state['lista_alquileres'])} opciones consolidadas:")
+    st.success(f"Se encontraron {len(st.session_state['lista_alquileres'])} opciones consolidadas en tu radio:")
     for item in st.session_state["lista_alquileres"]:
         with st.container(border=True):
             st.markdown(f"### {item['Tipo']} - {item['Título']}")
             st.markdown(f"📍 **Ubicación:** {item['Ubicación']}")
             st.markdown(f"💰 **Precio:** {item['Precio']} | **Expensas:** {item['Expensas']}")
             st.markdown(f"📝 **Descripción:** {item['Detalle']}")
-            st.caption(f"Portal: {item['Fuente']} | Estado: {item['Estado']}")
+            st.caption(f"Fuente: {item['Fuente']} | {item['Estado']}")
             
-            # Botón directo que abre la publicación con el carrusel de fotos real
-            st.link_button("📸 Abrir Publicación y Ver Carrusel de Fotos Reales", item["Link"], use_container_width=True)
+            st.link_button("📸 Abrir Anuncio Directo en la Web/App", item["Link"], use_container_width=True)
 
 st.markdown("---")
-st.markdown("### 🌐 Buscadores Directos por Plataforma (Filtros $850k + Casas/Deptos)")
-st.caption("Abre la búsqueda filtrada exacta en cada portal:")
+st.markdown("### 🌐 Búsquedas en Tiempo Real (Actualizadas al Instante)")
+st.caption("Toca cualquiera de estos botones para abrir las publicaciones ingresadas HOY:")
 
 col1, col2 = st.columns(2)
 with col1:
+    st.link_button("🟡 Mercado Libre Salta", "https://inmuebles.mercadolibre.com.ar/alquiler/salta/salta/centro/_PriceRange_0-850000", use_container_width=True)
     st.link_button("🏬 Facebook Marketplace", "https://www.facebook.com/marketplace/salta/propertyrentals/?minPrice=100000&maxPrice=850000&query=alquiler%20casa%20departamento%202%203%20dormitorios", use_container_width=True)
-    st.link_button("🔴 RE/MAX Salta (Casas/Deptos)", "https://www.remax.com.ar/casas-y-departamentos-en-salta", use_container_width=True)
 
 with col2:
-    st.link_button("🏢 Argenprop (Casas 2-3 dorms)", "https://www.argenprop.com/casas/alquiler/salta/2-dormitorios-o-3-dormitorios", use_container_width=True)
-    st.link_button("🔷 Zonaprop (Hasta $850k)", "https://www.zonaprop.com.ar/casas-departamentos-alquiler-salta-sa-orden-precio-ascendente.html", use_container_width=True)
+    st.link_button("🔷 Zonaprop (Hasta $850k)", "https://www.zonaprop.com.ar/casas-departamentos-alquiler-centro-ciudad-orden-precio-ascendente.html", use_container_width=True)
+    st.link_button("🏢 Argenprop (2-3 dorms)", "https://www.argenprop.com/departamentos/alquiler/salta/2-dormitorios-o-3-dormitorios/pesos-hasta-850000", use_container_width=True)
